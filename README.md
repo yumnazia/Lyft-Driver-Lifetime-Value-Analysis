@@ -68,6 +68,61 @@ LTV = -18.47 + 3.18 * total_ride_count + 0.70 * total_duration + 118.27 * active
 - Considering a mean ride count of 220 rides, a mean duration of 3154 minutes, and  a mean active day proportion of 0.569 (56.9%), it can be estimated that a driver will generate a value of $ 2,956.23 during their lifetime. This is probably an over estimation as there are probably other factors that will affect the Lifetime value here which we do not have access to with this dataset.
 
 ## Exploration of Driver Churn
+<img src = "https://github.com/yumnazia/Lyft-Driver-Lifetime-Value-Analysis/assets/12965968/ebf37cb0-ed79-4fec-a1c5-b5f9cf5a0622" align = "right" width = "500"> </img>
+Based on data, last driver onboarding date is 15th of May, and the last ride date in the dataset is 26th of June.
+With the assumptions made regarding the dataset, I have defined a churn indicator based on the following conditions:
+- Driver has not taken any ride in the last data month (June 2016) - 26 days of inactivity.
+- Driver has taken rides in June but have only been active < 5% of their tenure
+
+I have then used correlation to assess attributes that positively or negatively affect Churn.
+- Churn is highly correlated with days_to_last_ride which is the difference between last ride a driver has taken and last ride date of the dataset. 
+- Negatively correlated with driver_tenure, the smaller the tenure, the bigger there would be a possibility that a driver will churn.
+- Negative correlation with lifetime_value, the negative correlation indicates an inversely proportional relationship meaning the less the value a driver generates, the more chance there exists for a driver to churn.
+<br height = "100"> </br>
+
+### Predictive Indicators of Driver Churn
+<img src = "https://github.com/yumnazia/Lyft-Driver-Lifetime-Value-Analysis/assets/12965968/be75f3af-284a-40e6-a4f9-5da88a01df60" align = "right" width = "350"> </img>
+Based on the correlation, I decided to use the following features to assess their predictive capability for predicting churn:
+1. Number of days to last ride - In this analysis, I have used max ride date to calculate the number of days, in a real time environment, this would be current date. 
+2. Driver Tenure
+3. Lifetime value of a driver 
+
+I have used logistic regression as the outcome variable in this case is Boolean. 
+The model was able to predict cases where a driver will churn with 98% accuracy.
+The model was  able to predict cases where a driver will not churn with 100% accuracy. 
+
+The high accuracy indicates that the model in conjunction with the specified features, is good to be used for prediction of driver churn.
+
+### Driver Segmentation in order to assess driver behavior associated with Churn
+To understand the behavior associated with drivers who are more likely going to leave, I used K-means clustering algorithm to create clusters of drivers based on that associated attributes resulting in 4 clusters described below:
+![image](https://github.com/yumnazia/Lyft-Driver-Lifetime-Value-Analysis/assets/12965968/db9b377f-9de0-4788-91ed-ae3c858d63d4)
+
+On the basis of this, we can conclude that the behavior associated with "Bad Drivers" is the best representative of behavior associated with drivers who are more likely to churn than others. 
+
+## Impact of demand for rides, on Lyft Drivers
+<img align = "right" width = "500" src = "https://github.com/yumnazia/Lyft-Driver-Lifetime-Value-Analysis/assets/12965968/c9968e94-bef6-4d6c-9d7c-bf8ec651b2bf"> </img>
+Based on demand for rides through different times of the day, we can conclude that:
+- lowest number of rides as well as drivers between 4-5 AM, highest between 5-6 PM.
+- Number of drivers low between 12 – 6 AM, steady increase after 8 AM and in a good number through the day.
+- Waiting time to get a ride match as well as prime time % is higher around 8 AM in the morning.
+- The prime time % is also higher for closing hours like 5-6 PM because of higher demand as compared to remaining hours of the day.
+- The average ride allocation time is higher in the early AM hours because of less drivers available. 
+
+### Correlation between high demand times and other factors
+<img align = "right" width = "150" src = "https://github.com/yumnazia/Lyft-Driver-Lifetime-Value-Analysis/assets/12965968/4be50582-3f24-43c1-8c58-b83263dbc43e"> </img>
+Since high demand is indicated by prime time %, we can just see how prime time % ties to different driver related factors to assess the effect. 
+- The prime time % is negatively correlated with driver response time, the higher the demand, the smaller the response time from drivers to accept ride requests.
+- It’s positively correlated with total ride count as drivers, in a high demand time and area do take more frequent rides.
+- The prime time % is positively correlated with driver lifetime value because of higher fares as high demand drives high incentives for the drivers, and there are drivers that take advantage of the prime time.
+
+## Actionable Recommendations
+- Retaining good drivers: Focusing on driver LTV and the value good drivers bring to Lyft, the business should focus on retaining as well as encouraging middle tier drivers to take more rides, stay longer with the business with an aim to convert them into good/excellent drivers along the way.
+- Identify and address issues faced by drivers and riders in marketplace: The business should identify and address the issues faced by the bad drivers, like low earnings, low ride frequency, and low ride duration, to improve their performance. Simultaneously, the business should also identify and address customer related issues from the ratings and feedback given at the end of the ride to the drivers.
+- Use real-time models to guide drivers: The business could use a heatmap that drivers can use to be present in the in-demand areas nearby for building higher incentives.
+- Use of data driven strategies: Assess performance by submarket (region), ride type, platform to come up with submarket specific data-driven approaches for improvement and expansion.
+- Use competitor data (if accessible) to compare performance and practices to understand areas of improvement and opportunity within the business model.
+- Assess the KPIs of interest like driver response times, wait-time for a potential rider before ride is matched, ETA for driver to arrive at pickup, ratings per sub-market, analyze variance and come up with better estimates.
+
 
 
 
