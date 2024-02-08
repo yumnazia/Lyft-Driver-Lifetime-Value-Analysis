@@ -1,5 +1,7 @@
 # Lyft Driver Life time value analysis
-This detailed analysis covers different aspects of a driver's life at Lyft. I have first done some exploratory data analysis to get a better understanding of the data. 
+This detailed analysis covers different aspects of a driver's life at Lyft. It covers drivers projected life, driver's projected lifetime value, driver churn and segmentation to assess behavior associated with drivers most likely to churn followed by effect of demand on drivers. 
+
+I have first done some exploratory data analysis to get a better understanding of the data. 
 We have three datasets:
 1. Rides datasets: One that includes information on rides such as driver id, ride id, and the other that includes timestamps associated with the ride specific events. 
 2. Drivers dataset: This dataset contains information on drivers including the onboarding dates for each of the drivers.
